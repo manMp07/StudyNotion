@@ -88,7 +88,7 @@ exports.resetPassword = async (req, res) => {
             });
         }
 
-        if(user.resetPasswordExpires < Date.now()) {
+        if(user.resetPasswordExpiry < Date.now()) {
             return res.status(400).json({
                 success: false,
                 message: 'Reset password token has expired.'

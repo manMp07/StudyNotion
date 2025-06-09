@@ -40,7 +40,7 @@ exports.auth = (req, res, next) => {
 exports.isStudent = (req, res, next) => {
     try {
 
-        if(req.user.accountType !== "Student") {
+        if(req.user.role !== "Student") {
             return res.status(401).json({
                 success: false,
                 message: "This is protected route for Students only"

@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+// HW : Turn this tag model into a Category model
+
 const tagSchema = new mongoose.Schema({
     name: {
         type: String,

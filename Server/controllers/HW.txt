@@ -1,5 +1,3 @@
-// get all course details with populating all data
+// top selling courses in categoryPageDetails function in Category controller
 
-// create rating and review
-// get average rating
-// get all ratings
+// controller for contact us page

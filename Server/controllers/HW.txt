@@ -1,0 +1,5 @@
+// get all course details with populating all data
+
+// create rating and review
+// get average rating
+// get all ratings

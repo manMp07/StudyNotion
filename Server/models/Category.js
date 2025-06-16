@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 // HW : Turn this tag model into a Category model
 
-const tagSchema = new mongoose.Schema({
+const categorySchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -17,4 +17,4 @@ const tagSchema = new mongoose.Schema({
     
 }, {timestamps: true});
 
-module.exports = mongoose.model("Tag", tagSchema);
+module.exports = mongoose.model("Category", categorySchema);

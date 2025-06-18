@@ -79,7 +79,18 @@ exports.categoryPageDetails = async (req, res) => {
                                                 .populate("courses").exec();
 
         //HW - topselling courses
-        // top 10
+        //Top 10
+        const allCategories = await Category.find()
+            .populate({
+                path: "courses",
+                match: { status: "Published" },
+                populate: {
+                    path: "instructor",
+                }
+            })
+            .exec();
+        const allCourses = allCategories.flatMap((category) => category.courses)
+        const mostSellingCourses = allCourses.sort((a, b) => b.sold - a.sold).slice(0, 10)
     
         return res.status(200).json({
             success: true,
@@ -87,7 +98,7 @@ exports.categoryPageDetails = async (req, res) => {
             data: {
                 selectedCategory,
                 differentCategories,
-                //topSellingCourses
+                mostSellingCourses
             }
         });
     }

@@ -81,7 +81,7 @@ exports.createCourse = async (req, res) => {
 }
 
 // Get all courses
-exports.showAllCourses = async (req, res) => {
+exports.getAllCourses = async (req, res) => {
     try {
         /*const allCourses = await Course.find({}, {
             courseName: true,

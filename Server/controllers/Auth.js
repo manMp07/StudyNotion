@@ -16,18 +16,21 @@ exports.sendOtp = async (req, res) => {
         if(!email) 
             return res.status(400).json({message: "Email is required"});
 
-        const checkUserPresent = await User.find({email});
+        const checkUserPresent = await User.find({email: email})
 
         // if user already exists
-        if(checkUserPresent){
+        if(checkUserPresent.length > 0) {
             return res.status(400).json({
                 success: false,
+                checkUserPresent,
                 message: "User already exists with this email"
             });
         }
 
         let otp = otpGenerator.generate(6, {
-            upperCase: false,
+            upperCaseAlphabets: false,
+            lowerCaseAlphabets: false,
+            digits: true,
             specialChars: false
         });
         const result = await OTP.findOne({otp: otp});
@@ -35,6 +38,7 @@ exports.sendOtp = async (req, res) => {
         while(result){
             otp = otpGenerator.generate(6, {
                 upperCase: false,
+                lowerCase: false,
                 specialChars: false
             });
 
@@ -246,7 +250,7 @@ exports.changePassword = async (req, res) => {
         if(newPassword !== confirmNewPassword) {
             return res.status(400).json({
                 success: false,
-                message: "New password and confirm new password do not match"
+                message: "New password and confirm new password does not match"
             });
         }
 

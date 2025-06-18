@@ -25,16 +25,16 @@ exports.resetPasswordToken = async (req, res) => {
 
         const updatedUser = await User.findByIdAndUpdate(user._id, {
             resetPasswordToken: token,
-            resetPasswordExpires: Date.now() + 5*60*1000 // expire in 2 minutes 
+            resetPasswordExpiry: Date.now() + 10*60*1000 // expire in 10 minutes
         }, { new: true }); // response with updated user
 
         const url = `http://localhost:3000/reset-password/${token}`;
 
-        await mailSender({
-            email: updatedUser.email,
-            subject: 'Reset Password Link',
-            body: `Reset Password Link: ${url}`
-        });
+        await mailSender(
+            updatedUser.email,
+            'Reset Password Link',
+            `Reset Password Link: ${url}`
+        );
 
         return res.status(200).json({
             success: true,
@@ -45,7 +45,8 @@ exports.resetPasswordToken = async (req, res) => {
         console.error('Error generating reset password token:', error);
         res.status(500).json({
             success: false,
-            message: 'Error in generating reset password token.'
+            message: 'Error in generating reset password token.',
+            error: error.message
         });
     }
 }

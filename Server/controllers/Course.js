@@ -1,13 +1,13 @@
 const Course = require('../models/Course');
 const User = require('../models/User');
 const Category = require('../models/Category');
-const { uplaodImageToCloudinary } = require('../utils/imageUploader');
+const { uploadImageToCloudinary } = require('../utils/imageUploader');
 
 // Create a new course
 exports.createCourse = async (req, res) => {
     try {
         const {courseName, courseDescription, whatYouWillLearn, price, category} = req.body;
-        const thumbnail = req.file.thumbnailImage;
+        const thumbnail = req.files.thumbnailImage;
 
         //validation
         if(!courseName || !courseDescription || !whatYouWillLearn || !price || !category || !thumbnail) {
@@ -37,8 +37,15 @@ exports.createCourse = async (req, res) => {
         }
 
         //upload image to cloudinary
-        const thumbnailImage = await uplaodImageToCloudinary(thumbnail, process.env.FOLDER_NAME);
+        const thumbnailImage = await uploadImageToCloudinary(
+            thumbnail,
+            process.env.FOLDER_NAME,
+            100,
+            100
+        );
 
+        //console.log("Category Details:", categoryDetails);
+        
         //crreate course entry
         const newCourse = await Course.create({
             courseName,
@@ -59,7 +66,7 @@ exports.createCourse = async (req, res) => {
 
         //update tag schema
         await Category.findByIdAndUpdate(
-            {_id : category._id},
+            {_id : categoryDetails._id},
             { $push: {courses: newCourse._id} },
             { new: true }
         );

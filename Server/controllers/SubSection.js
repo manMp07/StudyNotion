@@ -11,10 +11,10 @@ exports.createSubSection = async (req, res) => {
     //update section schema
 
     try {
-        const {title, timeDuration, discription, sectionId} = req.body;
-        const video = req.file.videoFile;
+        const {title, timeDuration, description, sectionId} = req.body;
+        const video = req.files.videoFile;
 
-        if(!title || !timeDuration || !discription || !sectionId || !video) {
+        if(!title || !timeDuration || !description || !sectionId || !video) {
             return res.status(400).json({
                 success: false,
                 message: "All fields are required"
@@ -26,7 +26,7 @@ exports.createSubSection = async (req, res) => {
         const newSubSection = await SubSection.create({
             title,
             timeDuration,
-            discription,
+            description,
             videoUrl: uploadedVideo.secure_url,
         });
 

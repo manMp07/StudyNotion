@@ -51,10 +51,11 @@ exports.createSubSection = async (req, res) => {
 
 exports.updateSubSection = async (req, res) => {
     try {
-        const { subSectionId, title, timeDuration, discription } = req.body;
-        const video = req.file.videoFile;
+        const { subSectionId, title, timeDuration, description } = req.body;
+        console.log("Received data:", req.files);
+        const video = req.files.videoFile;
 
-        if (!subSectionId || !title || !timeDuration || !discription) {
+        if (!subSectionId || !title || !timeDuration || !description) {
             return res.status(400).json({
                 success: false,
                 message: "All fields are required"
@@ -64,7 +65,7 @@ exports.updateSubSection = async (req, res) => {
         const updateData = {
             title,
             timeDuration,
-            discription
+            description
         };
 
         if (video) {

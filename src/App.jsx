@@ -1,14 +1,34 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Home from "./pages/Home"
-import Navbar from "./components/common/Navbar"
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup"
+import Navbar from "./components/common/Navbar";
+import OpenRoute from "./components/core/Auth/OpenRoute";
+import PrivateRoute from "./components/core/Auth/PrivateRoute";
 
 function App() {
     return (
         <div className="100vh 100vw min-h-screen bg-richblack-900 flex flex-col font-inter">
             <Navbar />
             <Routes>
-                <Route path="/" element={<Home/>} />
+                <Route path="/" element={<Home />} />
+                <Route
+                    path="login"
+                    element={
+                        <OpenRoute>
+                            <Login />
+                        </OpenRoute>
+                    }
+                />
+                <Route
+                    path="signup"
+                    element={
+                        <OpenRoute>
+                            <Signup />
+                        </OpenRoute>
+                    }
+                />
             </Routes>
         </div>
     );

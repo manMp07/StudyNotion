@@ -66,12 +66,13 @@ function SignupForm() {
             return;
         }
 
-        if (!isPasswordValid(password)) {
+        /* if (!isPasswordValid(password)) {
+            console.log("Here is the password error");
             toast.error(
                 "Password must be at least 8 characters long and include uppercase, lowercase, number, and special character"
             );
             return;
-        }
+        } */
 
         const signupData = {
             ...formData,
